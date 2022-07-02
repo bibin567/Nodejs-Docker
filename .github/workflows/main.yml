@@ -20,12 +20,14 @@ jobs:
 
     - name: Check out code
       uses: actions/checkout@v2
-    
-    - name: Configure AWS credentials
+
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        # if you have/need it
         aws-region: ap-south-1
 
     - name: Login to Amazon ECR
@@ -38,5 +40,5 @@ jobs:
         ECR_REPOSITORY: nodejs-docker
         IMAGE_TAG: nodejs-docker
       run: |
-        docker build -t $ECR_REGISTRY/$nodejs-docker:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$nodejs-docker:$IMAGE_TAG
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
